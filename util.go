@@ -6,6 +6,14 @@ import (
 	"strings"
 )
 
+func ToHex(str string) string {
+	if strings.HasPrefix(str, "T") && len(str) == 34 {
+		hex, _ := Address2HexString(str)
+		return hex
+	}
+	return "" // todo
+}
+
 func Address2HexString(str string) (string, error) {
 	if len(str) == 42 && strings.HasPrefix(str, "41") {
 		return str, nil

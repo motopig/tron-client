@@ -11,6 +11,11 @@ import (
 	"net/http"
 )
 
+type Tron struct {
+	*Client
+	Address map[string]string
+}
+
 type Client struct {
 	// HTTPClient carries out the POST operations
 	HTTPClient heimdall.Client
@@ -34,7 +39,8 @@ type LastRequest struct {
 	URL string
 }
 
-func NewClient() *Client {
+func NewTron() *Tron {
+	t := new(Tron)
 	c := new(Client)
 	backOff := heimdall.NewExponentialBackoff(
 		ConnectionInitialTimeout,
@@ -55,8 +61,17 @@ func NewClient() *Client {
 
 	// Create a last request struct
 	c.LastRequest = new(LastRequest)
+	t.Client = c
 
-	return c
+	return t
+}
+
+func (t *Tron) SetAddress(str string) {
+	toHex, _ := Address2HexString(str)
+	fromHex := HexString2Address(str)
+	t.Address = make(map[string]string)
+	t.Address["hex"] = toHex
+	t.Address["base58"] = fromHex
 }
 
 func (c *Client) Request(endpoint string, method string, payload []byte) (response string, err error) {

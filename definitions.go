@@ -12,3 +12,12 @@ type AddressInfo struct {
 	Address    string `json:"address"`
 	HexAddress string `json:"hexAddress"`
 }
+
+type AccountInfo struct {
+	APIInternalError
+	Address               string `json:"address"`
+	Balance               string `json:"balance"`
+	CreateTime            string `json:"create_time"`
+	LatestOprationTime    string `json:"latest_opration_time"`
+	LatestConsumeFreeTime string `json:"latest_consume_free_time"`
+}

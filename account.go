@@ -6,11 +6,11 @@ import (
 	"net/http"
 )
 
-func (c *Client) CreateAccount() (addressInfo *AddressInfo, err error) {
+func (t *Tron) CreateAccount() (addressInfo *AddressInfo, err error) {
 	// Create the request
 	var resp string
 
-	resp, err = c.Request("wallet/generateaddress", http.MethodPost, nil)
+	resp, err = t.Client.Request("wallet/generateaddress", http.MethodPost, nil)
 	if err != nil {
 		return
 	}
@@ -22,8 +22,37 @@ func (c *Client) CreateAccount() (addressInfo *AddressInfo, err error) {
 	}
 
 	// Error from request?
-	if c.LastRequest.StatusCode != http.StatusOK {
+	if t.Client.LastRequest.StatusCode != http.StatusOK {
 		err = fmt.Errorf("error: %s", addressInfo.ErrorMessage)
+		return
+	}
+
+	return
+}
+
+func (t *Tron) GetAccount(address string) (accountInfo *AccountInfo, err error) {
+	// Create the request
+	var resp string
+	if address == "" {
+		address = t.Address["hex"]
+	} else {
+		address = ToHex(address)
+	}
+
+	resp, err = t.Client.Request("walletsolidity/getaccount", http.MethodPost, []byte(fmt.Sprintf(`{"address":"%s"}`, address)))
+	if err != nil {
+		return
+	}
+
+	// Process the response
+	accountInfo = new(AccountInfo)
+	if err = json.Unmarshal([]byte(resp), accountInfo); err != nil {
+		return
+	}
+
+	// Error from request?
+	if t.Client.LastRequest.StatusCode != http.StatusOK {
+		//err = fmt.Errorf("error: %s", accountInfo.ErrorMessage)
 		return
 	}
 
