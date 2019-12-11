@@ -19,3 +19,10 @@ type AccountInfo struct {
 	LatestOprationTime    int64   `json:"latest_opration_time"`
 	LatestConsumeFreeTime int64   `json:"latest_consume_free_time"`
 }
+
+type AccountBalance struct {
+	Balance float64 `json:"balance"`
+}
+
+type AccountResources struct {
+}

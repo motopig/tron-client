@@ -21,3 +21,14 @@ func TestTron_GetAccount(t *testing.T) {
 	}
 	t.Log(addr)
 }
+
+func TestTron_GetBalance(t *testing.T) {
+	var tc = NewTron()
+	tc.SetAddress("TQ8zLAj2jmi33799zi8H3ACCfRqXsu5U7w")
+
+	balance, err := tc.GetBalance("")
+	if err != nil {
+		t.Error(err.Error())
+	}
+	t.Log(balance)
+}
