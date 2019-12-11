@@ -23,7 +23,7 @@ func (t *Tron) CreateAccount() (addressInfo *AddressInfo, err error) {
 
 	// Error from request?
 	if t.Client.LastRequest.StatusCode != http.StatusOK {
-		err = fmt.Errorf("error: %s", addressInfo.ErrorMessage)
+		err = fmt.Errorf("error: %s", "addressInfo") // todo
 		return
 	}
 
@@ -52,7 +52,7 @@ func (t *Tron) GetAccount(address string) (accountInfo *AccountInfo, err error) 
 
 	// Error from request?
 	if t.Client.LastRequest.StatusCode != http.StatusOK {
-		//err = fmt.Errorf("error: %s", accountInfo.ErrorMessage)
+		err = fmt.Errorf("error: %s", "accountInfo")
 		return
 	}
 

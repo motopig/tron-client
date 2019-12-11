@@ -8,13 +8,13 @@ import (
 
 func ToHex(str string) string {
 	if strings.HasPrefix(str, "T") && len(str) == 34 {
-		hex, _ := Address2HexString(str)
+		hex, _ := Address2HexString(str, 0, 3, true)
 		return hex
 	}
 	return "" // todo
 }
 
-func Address2HexString(str string) (string, error) {
+func Address2HexString(str string, removeLeadingBytes int, removeTrailingBytes int, removeCompression bool) (string, error) {
 	if len(str) == 42 && strings.HasPrefix(str, "41") {
 		return str, nil
 	}
@@ -22,7 +22,19 @@ func Address2HexString(str string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return hex.EncodeToString(addr), nil
+	raw := hex.EncodeToString(addr)
+
+	if removeLeadingBytes > 0 {
+		raw = Substr(raw, 0, removeLeadingBytes*2)
+	}
+	if removeTrailingBytes > 0 {
+		raw = Substr(raw, 0, (len(raw) - removeTrailingBytes*2))
+	}
+
+	if removeCompression {
+		raw = Substr(raw, 0, (len(raw) - 2))
+	}
+	return raw, nil
 }
 
 func HexString2Address(str string) string {
@@ -46,4 +58,19 @@ func ctypeXdigit(str string) bool {
 		}
 	}
 	return isHex
+}
+
+func Substr(str string, start int, end int) string {
+	rs := []rune(str)
+	length := len(rs)
+
+	if start < 0 || start > length {
+		panic("start is wrong")
+	}
+
+	if end < 0 || end > length {
+		panic("end is wrong")
+	}
+
+	return string(rs[start:end])
 }

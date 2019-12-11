@@ -67,11 +67,15 @@ func NewTron() *Tron {
 }
 
 func (t *Tron) SetAddress(str string) {
-	toHex, _ := Address2HexString(str)
+	toHex, _ := Address2HexString(str, 0, 3, true)
 	fromHex := HexString2Address(str)
 	t.Address = make(map[string]string)
 	t.Address["hex"] = toHex
 	t.Address["base58"] = fromHex
+}
+
+func (t *Tron) GetAddress() map[string]string {
+	return t.Address
 }
 
 func (c *Client) Request(endpoint string, method string, payload []byte) (response string, err error) {

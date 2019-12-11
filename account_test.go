@@ -14,6 +14,7 @@ func TestClient_CreateAccount(t *testing.T) {
 func TestTron_GetAccount(t *testing.T) {
 	var tc = NewTron()
 	tc.SetAddress("TQ8zLAj2jmi33799zi8H3ACCfRqXsu5U7w")
+	t.Log(tc.GetAddress())
 	addr, err := tc.GetAccount("")
 	if err != nil {
 		t.Error(err.Error())
