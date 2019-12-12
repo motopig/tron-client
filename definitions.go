@@ -26,3 +26,18 @@ type AccountBalance struct {
 
 type AccountResources struct {
 }
+
+type TransactionRet struct {
+	Data    []Transaction `json:"data"`
+	Success bool          `json:"success"`
+}
+
+type Transaction struct {
+	BlockTimeStamp float64  `json:"block_timestamp"`
+	RawDataHex     string   `json:"raw_data_hex"`
+	TxID           string   `json:"txID"`
+	Signature      []string `json:"signature"`
+}
+
+type TransactionInfo struct {
+}

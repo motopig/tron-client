@@ -8,9 +8,9 @@ import (
 
 const (
 	// node
-	FullNodeEndpoint     = "https://api.trongrid.io"
-	SolidityNodeEndpoint = "https://api.trongrid.io"
-	EventServerEndpoint  = "https://api.trongrid.io"
+	FullNodeEndpoint     = "https://api.trongrid.io/v1"
+	SolidityNodeEndpoint = "https://api.trongrid.io/v1"
+	EventServerEndpoint  = "https://api.trongrid.io/v1"
 
 	// status page
 	FullNodeStatusPage     = "wallet/getnowblock"

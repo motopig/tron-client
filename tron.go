@@ -3,12 +3,13 @@ package tron_rpc_api
 import (
 	"bytes"
 	"fmt"
-	"github.com/gojek/heimdall"
-	"github.com/gojek/heimdall/httpclient"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/gojek/heimdall"
+	"github.com/gojek/heimdall/httpclient"
 )
 
 type Tron struct {

@@ -32,3 +32,17 @@ func TestTron_GetBalance(t *testing.T) {
 	}
 	t.Log(balance)
 }
+
+func TestTron_GetTransactionsFromAddress(t *testing.T) {
+	var tc = NewTron()
+	tc.SetAddress("TQ8zLAj2jmi33799zi8H3ACCfRqXsu5U7w")
+	tr := tc.GetTransactionsFromAddress("", true, false, 100, 0)
+	t.Log(tr)
+}
+
+func TestTron_GetTransactionsToAddress(t *testing.T) {
+	var tc = NewTron()
+	tc.SetAddress("TQ8zLAj2jmi33799zi8H3ACCfRqXsu5U7w")
+	tr := tc.GetTransactionsToAddress("", true, false, 100, 0)
+	t.Log(tr)
+}
